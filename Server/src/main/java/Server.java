@@ -12,14 +12,14 @@ public class Server {
         Factory factory = Factory.getInstance();
         JarNameAndVersionDao navD = factory.getJarNameAndVersionDao();
 
-        /*JarNameAndVersion nav = new JarNameAndVersion();
+        JarNameAndVersion nav = new JarNameAndVersion();
         nav.setNameAndVersion("lolka");
         navD.addNameAndVersion(nav);
-*/
-         List<JarNameAndVersion> allnav = navD.getAll();
+
+        /* List<JarNameAndVersion> allnav = navD.getAll();
         for (JarNameAndVersion navv : allnav)
         {
             System.out.println("ID " + navv.getId() + " name " + navv.getNameAndVersion());
-        }
+        }*/
     }
 }
