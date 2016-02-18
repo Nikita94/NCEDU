@@ -1,6 +1,7 @@
 package tables;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by nik on 17.02.2016.
@@ -16,7 +17,23 @@ public class JarNameAndVersion {
     @Column(name = "name_and_version")
     private String nameAndVersion;
 
-    public JarNameAndVersion() {}
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jar_name_and_version")
+    private List<Dependencies> dependencies;
+
+    public JarNameAndVersion () {}
+
+    public JarNameAndVersion(String nameAndVersion, List<Dependencies> dependencies) {
+        this.nameAndVersion = nameAndVersion;
+        this.dependencies = dependencies;
+    }
+
+    public List<Dependencies> getDependencies() {
+        return dependencies;
+    }
+
+    public void setDependencies(List<Dependencies> dependencies) {
+        this.dependencies = dependencies;
+    }
 
     public int getId() {
         return id;
