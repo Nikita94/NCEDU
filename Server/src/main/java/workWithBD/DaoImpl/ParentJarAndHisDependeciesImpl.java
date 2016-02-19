@@ -1,16 +1,16 @@
-package Dao.Impl;
+package workWithBD.DaoImpl;
 
-import Dao.JarNameAndVersionDao;
-import Util.HibernateUtil;
+import workWithBD.Dao.ParentJarAndHisDependecies;
+import workWithBD.util.HibernateUtil;
 import org.hibernate.Session;
-import tables.JarNameAndVersion;
+import workWithBD.tables.JarNameAndVersion;
 
 import java.util.List;
 
 /**
  * Created by nik on 18.02.2016.
  */
-public class JarNameAndVersionDaoImpl implements JarNameAndVersionDao {
+public class ParentJarAndHisDependeciesImpl implements ParentJarAndHisDependecies {
     public void addNameAndVersion(JarNameAndVersion nav) {
         Session session = null;
         try {

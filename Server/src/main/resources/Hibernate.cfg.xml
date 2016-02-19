@@ -12,7 +12,7 @@
         <property name="hibernate.connection.password">nikita20</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/jar_version</property>
 
-        <mapping class="tables.JarNameAndVersion"/>
-        <mapping class="tables.Dependencies"/>
+        <mapping class="workWithBD.tables.JarNameAndVersion"/>
+        <mapping class="workWithBD.tables.Dependencies"/>
     </session-factory>
 </hibernate-configuration>

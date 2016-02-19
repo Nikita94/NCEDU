@@ -1,4 +1,4 @@
-package tables;
+package workWithBD.tables;
 
 import javax.persistence.*;
 
@@ -10,17 +10,16 @@ import javax.persistence.*;
 @Table(name = "dependencies")
 public class Dependencies {
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "d_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-
-    @ManyToOne
-    @JoinColumn(name = "d_id")
-    private JarNameAndVersion d_id;
 
     @Column(name = "name_and_version")
     private String nameAndVersionD;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private JarNameAndVersion d_id;
 
     public int getId() {
         return id;

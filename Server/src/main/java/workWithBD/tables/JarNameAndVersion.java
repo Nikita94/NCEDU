@@ -1,4 +1,4 @@
-package tables;
+package workWithBD.tables;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,20 +11,19 @@ import java.util.List;
 public class JarNameAndVersion {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "name_and_version")
     private String nameAndVersion;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jar_name_and_version")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "d_id")
     private List<Dependencies> dependencies;
 
     public JarNameAndVersion () {}
 
-    public JarNameAndVersion(String nameAndVersion, List<Dependencies> dependencies) {
+    public JarNameAndVersion(String nameAndVersion) {
         this.nameAndVersion = nameAndVersion;
-        this.dependencies = dependencies;
     }
 
     public List<Dependencies> getDependencies() {
