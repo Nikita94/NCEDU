@@ -1,4 +1,4 @@
-package com.netkracker;
+package com.netcracker;
 
 //import java.nio.file.Files;
 
@@ -13,7 +13,7 @@ class Main {
     public static void main(String[] args) {
         CurrentPath way= new CurrentPath();
         Scanner arrow =new Scanner(System.in);
-        System.out.println("Hello, this is test version of jar dependency checker.");
+        System.out.println("Hello, this is test version of jar dependency checker.");//Console app
         System.out.println("To continue choose option.\n1.Search in program folder\n2.Search in upper folder\n3.Search in custom folder\n0. Exit");
         int n=arrow.nextInt();
 
