@@ -1,6 +1,6 @@
 import JSONParser.DependenciesJars;
 import JSONParser.toJSON;
-import Serversocket.HTTPServer;
+import Serversocket.SocketServer;
 import workWithBD.Dao.ParentJarAndHisDependencies;
 import workWithBD.util.Factory;
 
@@ -20,19 +20,18 @@ public class Server {
       // toJSON json = new toJSON(list);
       // json.createJSON();
 
-     //HTTPServer httpserver = new HTTPServer();
-     //httpserver.createSocket();
-     //httpserver.runServer();
-        List<String> list = new ArrayList<>();
-        list.add("DependeceWithDependecies v3.0.0.2");
-        list.add("Dependece1_1 v4.1");
-        list.add("Dependece1_2 v2.2.1");
-        list.add("Dependece2 v1.2.1");
-        list.add("Dependece2_1 v3.1");
-        list.add("Dependece1 v1.1");
-        list.add("Dependencies2_1_1 v.12.3");
-        DependenciesJars dependenciesJars = navD.checkDependencies(list);
-        toJSON tojson = new toJSON(dependenciesJars);
-        tojson.createJSON();
+        SocketServer socketServer = new SocketServer();
+        socketServer.createSocket();
+     // List<String> list = new ArrayList<>();
+     // list.add("DependeceWithDependecies v3.0.0.2");
+     // list.add("Dependece1_1 v4.1");
+     // list.add("Dependece1_2 v2.2.1");
+     // list.add("Dependece2 v1.2.1");
+     // list.add("Dependece2_1 v3.1");
+     // list.add("Dependece1 v1.1");
+     // list.add("Dependencies2_1_1 v.12.3");
+     // DependenciesJars dependenciesJars = navD.checkDependencies(list);
+     // toJSON tojson = new toJSON(dependenciesJars);
+     // tojson.createJSON();
     }
 }
