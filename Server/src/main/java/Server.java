@@ -1,8 +1,8 @@
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import workWithBD.tables.Dependencies;
-import workWithBD.tables.JarNameAndVersion;
+import JSONParser.DependenciesJars;
+import JSONParser.toJSON;
+import Serversocket.HTTPServer;
+import workWithBD.Dao.ParentJarAndHisDependencies;
+import workWithBD.util.Factory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,34 +11,28 @@ import java.util.List;
  * Created by nik on 17.02.2016.
  */
 public class Server {
-    public static void main (String argv[]) {
-        /* Factory factory = Factory.getInstance();
-        JarNameAndVersionDao navD = factory.getJarNameAndVersionDao();
+    public static void main (String argv[]) throws Exception {
+       Factory factory = Factory.getInstance();
+       ParentJarAndHisDependencies navD = factory.getJarNameAndVersionDao();
+      // List<String> list = new ArrayList<String>(navD.getAllDependencies("TestNameA v1.0.0.2"));
+      // navD.removeSetDependencies();
+      // List<String> list2 = new ArrayList<String>(navD.getAllDependencies("DependeceWithDependecies v3.0.0.2"));
+      // toJSON json = new toJSON(list);
+      // json.createJSON();
 
-        JarNameAndVersion nav = new JarNameAndVersion();
-        nav.setNameAndVersion("lolka");
-        navD.addNameAndVersion(nav);
-
-        List<JarNameAndVersion> allnav = navD.getAll();
-        for (JarNameAndVersion navv : allnav)
-        {
-            System.out.println("ID " + navv.getId() + " name " + navv.getNameAndVersion());
-        }*/
-
-        Configuration configuration = new Configuration().configure();
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        JarNameAndVersion nav = new JarNameAndVersion("test-1.0.0.1");
-        List<Dependencies> dependenciesList = new ArrayList<Dependencies>();
-        dependenciesList.add(new Dependencies(nav, "test2_for_test-3.0.0"));
-        dependenciesList.add(new Dependencies(nav, "test2_for_test2-4.0.0"));
-        nav.setDependencies(dependenciesList);
-
-        session.save(nav);
-        session.getTransaction().commit();
-        session.close();
+     //HTTPServer httpserver = new HTTPServer();
+     //httpserver.createSocket();
+     //httpserver.runServer();
+        List<String> list = new ArrayList<>();
+        list.add("DependeceWithDependecies v3.0.0.2");
+        list.add("Dependece1_1 v4.1");
+        list.add("Dependece1_2 v2.2.1");
+        list.add("Dependece2 v1.2.1");
+        list.add("Dependece2_1 v3.1");
+        list.add("Dependece1 v1.1");
+        list.add("Dependencies2_1_1 v.12.3");
+        DependenciesJars dependenciesJars = navD.checkDependencies(list);
+        toJSON tojson = new toJSON(dependenciesJars);
+        tojson.createJSON();
     }
 }

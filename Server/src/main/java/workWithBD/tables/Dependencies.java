@@ -19,7 +19,9 @@ public class Dependencies {
 
     @ManyToOne
     @JoinColumn(name = "id")
-    private JarNameAndVersion d_id;
+    public JarNameAndVersion d_id;
+
+    public Dependencies () {}
 
     public int getId() {
         return id;

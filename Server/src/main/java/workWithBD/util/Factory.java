@@ -1,15 +1,14 @@
 package workWithBD.util;
 
-import workWithBD.DaoImpl.ParentJarAndHisDependeciesImpl;
-import workWithBD.Dao.ParentJarAndHisDependecies;
-import workWithBD.DaoImpl.ParentJarAndHisDependeciesImpl;
+import workWithBD.DaoImpl.ParentJarAndHisDependenciesImpl;
+import workWithBD.Dao.ParentJarAndHisDependencies;
 
 /**
  * Created by nik on 18.02.2016.
  */
 public class Factory {
     public static Factory instance = new Factory();
-    public ParentJarAndHisDependeciesImpl navD;
+    public ParentJarAndHisDependenciesImpl navD;
 
     private Factory () {}
 
@@ -17,9 +16,9 @@ public class Factory {
         return Factory.instance;
     }
 
-    public ParentJarAndHisDependecies getJarNameAndVersionDao(){
+    public ParentJarAndHisDependencies getJarNameAndVersionDao(){
         if (navD == null)
-            navD = new ParentJarAndHisDependeciesImpl();
+            navD = new ParentJarAndHisDependenciesImpl();
         return navD;
     }
 }

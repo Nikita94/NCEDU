@@ -1,0 +1,12 @@
+{
+  "allDependencies": true,
+  "setDep": [
+    "DependeceWithDependecies v3.0.0.2",
+    "Dependece1_1 v4.1",
+    "Dependece1_2 v2.2.1",
+    "Dependece2 v1.2.1",
+    "Dependece2_1 v3.1",
+    "Dependece1 v1.1",
+    "Dependencies2_1_1 v.12.3"
+  ]
+}
