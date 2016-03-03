@@ -29,13 +29,6 @@ public class CurrentPath {
         System.out.println(addressToPrint);
     }
 
-    public void SpecialPath1(){
-        address=Paths.get("E:\\Windows\\Documents\\NEC\\First Project\\ClientApp\\testJars");
-
-
-
-
-    }
     public void getCustomPath() {
         InputStream is = System.in;
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
