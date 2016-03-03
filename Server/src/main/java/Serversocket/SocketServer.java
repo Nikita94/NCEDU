@@ -53,7 +53,6 @@ public class SocketServer {
     class ClientServiceThread extends Thread
     {
         Socket myClientSocket;
-        boolean m_bRunThread = true;
         private fromJSON fromjson = null;
         private List<String> listNames = null;
         BufferedReader in = null;
@@ -67,8 +66,6 @@ public class SocketServer {
         ClientServiceThread(Socket s)
         {
             myClientSocket = s;
-
-
         }
 
         public void run()
@@ -97,7 +94,10 @@ public class SocketServer {
 
                 ParentJarAndHisDependencies navD = factory.getJarNameAndVersionDao();
                 DependenciesJars dependenciesJars = navD.checkDependencies(list);
+                navD.removeSetDependencies();
+                //System.out.println(list.toString());
                 toJSON json = new toJSON(dependenciesJars);
+                //System.out.println(dependenciesJars.getSetDep().toString());
                 send(json);
 
             }
