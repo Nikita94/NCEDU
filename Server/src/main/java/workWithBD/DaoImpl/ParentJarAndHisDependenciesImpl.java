@@ -97,7 +97,6 @@ public class ParentJarAndHisDependenciesImpl implements ParentJarAndHisDependenc
         for (Dependencies dep : listDependencies) {
             getAllDependenciesForOneJar(dep.getNameAndVersionD());
         }
-        System.out.println(listNames.toString() + " | "+ inc + " | " + listNames.size());
         return listNames;
     }
 

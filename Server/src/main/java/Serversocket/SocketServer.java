@@ -80,20 +80,10 @@ public class SocketServer {
                 System.out.println(names);
                 fromjson = new fromJSON(names);
                 listNames = fromjson.getListNames();
-
-                List<String> list = new ArrayList<>();
-                list.add("DependeceWithDependecies v3.0.0.2");
-                list.add("Dependece1_1 v4.1");
-                list.add("Dependece1_2 v2.2.1");
-                list.add("Dependece2 v1.2.1");
-                list.add("Dependece2_1 v3.1");
-                list.add("Dependece1 v1.1");
-                list.add("Dependencies2_1_1 v.12.3");
-
                 Factory factory = Factory.getInstance();
 
                 ParentJarAndHisDependencies navD = factory.getJarNameAndVersionDao();
-                DependenciesJars dependenciesJars = navD.checkDependencies(list);
+                DependenciesJars dependenciesJars = navD.checkDependencies(listNames);
                 navD.removeSetDependencies();
                 //System.out.println(list.toString());
                 toJSON json = new toJSON(dependenciesJars);

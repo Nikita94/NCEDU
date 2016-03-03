@@ -1,6 +1,8 @@
 package JSONParser;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,8 +16,12 @@ public class fromJSON {
     }
 
     public List<String> getListNames () {
-        List<String> listNames = new ArrayList<String>();
-
+        List<String> listNames = new ArrayList<>();
+        jarNames = jarNames.substring(1, jarNames.length() - 1);
+        String array[] = jarNames.split(", ");
+        listNames = Arrays.asList(array);
+        for (String str : listNames)
+            System.out.println(str);
         return listNames;
     }
 }
