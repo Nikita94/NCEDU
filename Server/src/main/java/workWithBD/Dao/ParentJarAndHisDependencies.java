@@ -14,7 +14,7 @@ public interface ParentJarAndHisDependencies {
     public JarNameAndVersion getIDFromFirstTable (String name);
     public List<Dependencies> getNamesOnFK(JarNameAndVersion parentJar);
     public Set<String> getAllDependenciesForOneJar (String name);
-    public void removeSetDependencies();
+    public void clean();
     public DependenciesJars checkDependencies(List<String> jarNames);
     public Set<String> getAllDependenciesAllJars(List<String> jarNames);
 }

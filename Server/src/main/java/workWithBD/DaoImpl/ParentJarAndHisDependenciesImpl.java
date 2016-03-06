@@ -20,7 +20,8 @@ import java.util.Set;
 public class ParentJarAndHisDependenciesImpl implements ParentJarAndHisDependencies {
     private static Set<String> listNames = new HashSet<String>();
     static int inc = 0;
-    public void removeSetDependencies() {
+
+    public void clean() {
         listNames.clear();
         inc = 0;
     }
@@ -30,10 +31,14 @@ public class ParentJarAndHisDependenciesImpl implements ParentJarAndHisDependenc
         Set<String> setDep = getAllDependenciesAllJars(jarNames);
         Set<String> sendedData = new HashSet<>(jarNames);
         DependenciesJars dependenciesJars = null;
-        if (sendedData.containsAll(setDep))
+        if (sendedData.containsAll(setDep)) {
+            setDep.removeAll(sendedData);
             dependenciesJars = new DependenciesJars(true, setDep);
-        else
+        }
+        else {
+            setDep.removeAll(sendedData);
             dependenciesJars = new DependenciesJars(false, setDep);
+        }
         return dependenciesJars;
     }
 

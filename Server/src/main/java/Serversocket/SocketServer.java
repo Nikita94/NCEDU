@@ -84,7 +84,7 @@ public class SocketServer {
 
                 ParentJarAndHisDependencies navD = factory.getJarNameAndVersionDao();
                 DependenciesJars dependenciesJars = navD.checkDependencies(listNames);
-                navD.removeSetDependencies();
+                navD.clean();
                 //System.out.println(list.toString());
                 toJSON json = new toJSON(dependenciesJars);
                 //System.out.println(dependenciesJars.getSetDep().toString());
