@@ -10,7 +10,6 @@ import workWithBD.util.Factory;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,8 +54,10 @@ public class SocketServer {
         Socket myClientSocket;
         private fromJSON fromjson = null;
         private List<String> listNames = null;
-        BufferedReader in = null;
-        PrintWriter out = null;
+        private BufferedReader in = null;
+        private PrintWriter out = null;
+        private  ParentJarAndHisDependencies navD = null;
+        private Factory factory = null;
 
         public ClientServiceThread()
         {
@@ -66,6 +67,8 @@ public class SocketServer {
         ClientServiceThread(Socket s)
         {
             myClientSocket = s;
+            factory = Factory.getInstance();
+            navD = factory.getJarNameAndVersionDao();
         }
 
         public void run()
@@ -80,13 +83,11 @@ public class SocketServer {
                 System.out.println(names);
                 fromjson = new fromJSON(names);
                 listNames = fromjson.getListNames();
-                Factory factory = Factory.getInstance();
-
-                ParentJarAndHisDependencies navD = factory.getJarNameAndVersionDao();
                 DependenciesJars dependenciesJars = navD.checkDependencies(listNames);
                 navD.clean();
                 //System.out.println(list.toString());
                 toJSON json = new toJSON(dependenciesJars);
+                json.createJSON();
                 //System.out.println(dependenciesJars.getSetDep().toString());
                 send(json);
 

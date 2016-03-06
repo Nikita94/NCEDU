@@ -2,14 +2,13 @@ package workWithBD.DaoImpl;
 
 import JSONParser.DependenciesJars;
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
-import workWithBD.tables.Dependencies;
-import workWithBD.Dao.ParentJarAndHisDependencies;
-import workWithBD.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+import workWithBD.Dao.ParentJarAndHisDependencies;
+import workWithBD.tables.Dependencies;
 import workWithBD.tables.JarNameAndVersion;
+import workWithBD.util.HibernateUtil;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,7 +18,8 @@ import java.util.Set;
  */
 public class ParentJarAndHisDependenciesImpl implements ParentJarAndHisDependencies {
     private static Set<String> listNames = new HashSet<String>();
-    static int inc = 0;
+    private static int inc = 0;
+    private boolean existingJar = false;
 
     public void clean() {
         listNames.clear();
@@ -31,13 +31,18 @@ public class ParentJarAndHisDependenciesImpl implements ParentJarAndHisDependenc
         Set<String> setDep = getAllDependenciesAllJars(jarNames);
         Set<String> sendedData = new HashSet<>(jarNames);
         DependenciesJars dependenciesJars = null;
-        if (sendedData.containsAll(setDep)) {
-            setDep.removeAll(sendedData);
-            dependenciesJars = new DependenciesJars(true, setDep);
+        if (existingJar == true) {
+            if (sendedData.containsAll(setDep) && existingJar) {
+                setDep.removeAll(sendedData);
+                dependenciesJars = new DependenciesJars("All dependencies are met", setDep);
+            } else {
+                setDep.removeAll(sendedData);
+                dependenciesJars = new DependenciesJars("All dependencies are not met", setDep);
+            }
         }
         else {
             setDep.removeAll(sendedData);
-            dependenciesJars = new DependenciesJars(false, setDep);
+            dependenciesJars = new DependenciesJars(setDep);
         }
         return dependenciesJars;
     }
@@ -94,6 +99,8 @@ public class ParentJarAndHisDependenciesImpl implements ParentJarAndHisDependenc
 
     public Set<String> getAllDependenciesForOneJar(String name) {
         JarNameAndVersion nav = getIDFromFirstTable(name);
+        if (nav != null)
+            existingJar = true;
         List<Dependencies> listDependencies = getNamesOnFK(nav);
         listNames.add(name);
         inc = inc + 1;

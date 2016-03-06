@@ -6,19 +6,23 @@ import java.util.Set;
  * Created by nik on 03.03.2016.
  */
 public class DependenciesJars {
-    boolean allDependencies = false;
+    String allDependencies = "DB does not have information about jars";
     Set<String> setDep = null;
 
-    public DependenciesJars(boolean allDependencies, Set<String> setDep) {
+    public DependenciesJars(String allDependencies, Set<String> setDep) {
         this.allDependencies = allDependencies;
         this.setDep = setDep;
     }
 
-    public boolean isAllDependencies() {
+    public DependenciesJars (Set<String> setDep) {
+        this.setDep = setDep;
+    }
+
+    public String isAllDependencies() {
         return allDependencies;
     }
 
-    public void setAllDependencies(boolean allDependencies) {
+    public void setAllDependencies(String allDependencies) {
         this.allDependencies = allDependencies;
     }
 
