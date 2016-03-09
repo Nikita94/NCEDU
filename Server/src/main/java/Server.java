@@ -13,6 +13,6 @@ import java.util.List;
 public class Server {
     public static void main (String argv[]) throws Exception {
         SocketServer socketServer = new SocketServer();
-        socketServer.createSocket();
+        socketServer.runServer();
     }
 }
