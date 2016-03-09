@@ -19,7 +19,7 @@ public class SocketServer {
     private int port = 5555;
     private ServerSocket myServerSocket = null;
 
-    public void createSocket () {
+    public void runServer () {
         try
         {
             myServerSocket = new ServerSocket(port);
