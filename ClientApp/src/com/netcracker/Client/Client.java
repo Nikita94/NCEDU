@@ -2,9 +2,12 @@ package com.netcracker.Client;
 
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -35,9 +38,11 @@ public class Client {
         try {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-            Gson file = json;
-            String str = file.toString(); //json to str convert
-            out.println(str);
+            Gson file = new Gson();
+            BufferedReader br = new BufferedReader(new FileReader("Output.json"));
+            List<String> ListJars = file.fromJson(br, new TypeToken<ArrayList<String>>(){}.getType()); //json to str convert
+            String jars = ListJars.toString();
+            out.println(jars);
             out.flush();
             outPutJson = in.readLine();
         } catch (IOException e) {
