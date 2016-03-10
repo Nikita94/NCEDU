@@ -19,8 +19,6 @@ public class fromJSON {
         jarNames = jarNames.substring(1, jarNames.length() - 1);
         String array[] = jarNames.split(", ");
         listNames = Arrays.asList(array);
-        for (String str : listNames)
-            System.out.println(str);
         return listNames;
     }
 }

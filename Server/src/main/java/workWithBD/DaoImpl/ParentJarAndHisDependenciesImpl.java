@@ -29,21 +29,22 @@ public class ParentJarAndHisDependenciesImpl implements ParentJarAndHisDependenc
     @Override
     public DependenciesJars checkDependencies(List<String> jarNames) {
         Set<String> setDep = getAllDependenciesAllJars(jarNames);
-        Set<String> sendedData = new HashSet<>(jarNames);
+        Set<String> dataFromClientAboutJars = new HashSet<>(jarNames);
         DependenciesJars dependenciesJars = null;
         if (existingJar == true) {
-            if (sendedData.containsAll(setDep) && existingJar) {
-                setDep.removeAll(sendedData);
+            if (dataFromClientAboutJars.containsAll(setDep) && existingJar) {
+                setDep.removeAll(dataFromClientAboutJars);
                 dependenciesJars = new DependenciesJars("All dependencies are met", setDep);
             } else {
-                setDep.removeAll(sendedData);
+                setDep.removeAll(dataFromClientAboutJars);
                 dependenciesJars = new DependenciesJars("All dependencies are not met", setDep);
             }
         }
         else {
-            setDep.removeAll(sendedData);
-            dependenciesJars = new DependenciesJars(setDep);
+            setDep.removeAll(dataFromClientAboutJars);
+            dependenciesJars = new DependenciesJars("DB does not have information about jars", setDep);
         }
+        clean();
         return dependenciesJars;
     }
 
