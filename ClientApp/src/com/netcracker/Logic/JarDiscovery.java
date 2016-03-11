@@ -2,7 +2,6 @@ package com.netcracker.Logic;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import sun.invoke.empty.Empty;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -11,23 +10,20 @@ import java.util.jar.Attributes;
 import java.util.jar.JarInputStream;
 import java.util.jar.Manifest;
 
-import static java.nio.file.Files.newDirectoryStream;
-
 /**
  * Created by Admin on 2/26/2016.
  */
 public class JarDiscovery {
     private Path address;
     private ArrayList<Path> jarLoc;
-    private ArrayList<String> fileList;
-    public Gson verList;
-    private ArrayList<String> completeList;
+    private Gson verList;
+
 
 
     public JarDiscovery(Path add, ArrayList<Path> files) {
         address = add;
         jarLoc = files;
-        //check();
+        //check(); //to ensure that all things is correct
         verList=new GsonBuilder().setPrettyPrinting().create();
 
 
@@ -35,17 +31,23 @@ public class JarDiscovery {
 
     }
 
+
+
     public void jarExplore(){
+        ArrayList<String> completeList;
 
 
         try{
             Writer writer = new FileWriter("Output.json");
             completeList=new ArrayList<String>();
+            System.out.println("\n\nthis is a final jar list with versions:\n");
             for (Path aJarLoc : jarLoc) {
 
                 InputStream inp = new FileInputStream(aJarLoc.toString());
                 JarInputStream jInp = new JarInputStream(inp);
-                Manifest manifest = jInp.getManifest();
+
+                    Manifest manifest = jInp.getManifest(); //we need exception for missed manifest and for empty manifest!
+
                 Attributes attr = manifest.getMainAttributes();
                 String version = attr.getValue("Version");
                 System.out.println(aJarLoc.getFileName() + " " + version);
@@ -68,7 +70,7 @@ public class JarDiscovery {
 
 
 
-    void check() {
+    private void check() {
         System.out.println(address);
         for (Path aJarLoc : jarLoc) {
             System.out.println(aJarLoc);
@@ -76,7 +78,9 @@ public class JarDiscovery {
 
     }
 
-
+    public Gson getVerList() {
+        return verList;
+    }
 }
 //
 //

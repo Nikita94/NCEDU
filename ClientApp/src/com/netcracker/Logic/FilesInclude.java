@@ -18,23 +18,25 @@ import static java.nio.file.Files.newDirectoryStream;
  */
 public class FilesInclude {
     private Path folderAddress;
-    public ArrayList<String> fileList;
-    public ArrayList<String> jarList;
-    public ArrayList<Path> jarAddressList;
-    public ArrayList<Path> allAddressList;
+    private ArrayList<String> fileList;
+    private ArrayList<Path> jarAddressList;
+    private ArrayList<Path> allAddressList;
 
     public FilesInclude(Path way) {
         folderAddress = way;
         fileList=new ArrayList<String>();
-        jarList=new ArrayList<String>();
         jarAddressList=new ArrayList<Path>();
         allAddressList=new ArrayList<Path>();
         fillArray();
         jarArr();
     }
+
+    public ArrayList<Path> getJarAddressList() {
+        return jarAddressList;
+    }
+
     private void fillArray(){
         int i=0;
-
         try (DirectoryStream<Path> dirStream = newDirectoryStream(folderAddress))
 
         {
@@ -43,17 +45,12 @@ public class FilesInclude {
                 if (isRegularFile(path)) {
                     fileList.add(path.getFileName().toString());
                     allAddressList.add((path.toAbsolutePath()));
-
-
-
                 }
                 i+=1;
             }
         } catch (IOException e) {
-            System.err.println(e);
+            System.err.println("No regular files!"+e);
         }
-
-
     }
 
     public void printFilesList() {
@@ -68,13 +65,13 @@ public class FilesInclude {
                 }
             }
         } catch (IOException e) {
-            System.err.println(e);
+            System.err.println("No regular files!"+e);
         }
 
 
     }
     //Stay only with jar files
-    public void jarArr(){
+    private void jarArr(){
         String pattern="[a-zA-Z]+\\s*[a-zA-Z]*\\u002E+(jar)";
         Pattern r=Pattern.compile(pattern);
 
@@ -83,18 +80,14 @@ public class FilesInclude {
             System.out.println("Step["+i+"]"+"\tjust4test");
             Matcher matcher=r.matcher(this.fileList.get(i));
             if(!matcher.matches()) {
-                System.out.println("NOT PASSED WITH: "+this.fileList.get(i)+"\tjust4test");
+                System.out.println("NOT PASSED WITH: "+this.fileList.get(i));
                 //fileList.remove(i);
                 // i--; //to synchronize array timer
             }else{
-                System.out.println("PASSED WITH: "+this.fileList.get(i)+"\tjust4test");
-                this.jarList.add(fileList.get(i));
+                System.out.println("PASSED WITH: "+this.fileList.get(i));
                 this.jarAddressList.add(allAddressList.get(i));
             }
-
         }
-
-
-
     }
+
 }
