@@ -77,7 +77,7 @@ public class FilesInclude {
 
 
         for(int i=0;i<this.fileList.size();i++){
-            System.out.println("Step["+i+"]"+"\tjust4test");
+            System.out.println("Step["+i+"]");
             Matcher matcher=r.matcher(this.fileList.get(i));
             if(!matcher.matches()) {
                 System.out.println("NOT PASSED WITH: "+this.fileList.get(i));

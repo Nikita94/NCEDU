@@ -44,10 +44,12 @@ public class JarDiscovery {
             for (Path aJarLoc : jarLoc) {
 
                 InputStream inp = new FileInputStream(aJarLoc.toString());
-                JarInputStream jInp = new JarInputStream(inp);
-
+                    JarInputStream jInp = new JarInputStream(inp);
                     Manifest manifest = jInp.getManifest(); //we need exception for missed manifest and for empty manifest!
-
+                    if ( manifest == null)
+                    {
+                        throw new Exception( "no manifest found in jar file " + aJarLoc);
+                    }
                 Attributes attr = manifest.getMainAttributes();
                 String version = attr.getValue("Version");
                 System.out.println(aJarLoc.getFileName() + " " + version);
@@ -62,6 +64,7 @@ public class JarDiscovery {
 
         }catch (Exception e){
             System.out.println("oops!");
+            System.exit(-1);
         }
 
     }

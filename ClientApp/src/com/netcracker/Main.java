@@ -28,7 +28,7 @@ class Main {
         System.out.println("Let's begin to work.");
         try{Thread.sleep(1000);
         }catch (InterruptedException e){}
-        System.out.print("Folder scan...");
+        System.out.print("Folder scan...\n");
 
         fileList=new FilesInclude(way.getAddress());
         //fileList.printFilesList();
