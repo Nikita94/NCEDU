@@ -6,14 +6,14 @@ import workWithBD.Dao.ParentJarAndHisDependencies;
 /**
  * Created by nik on 18.02.2016.
  */
-public class Factory {
-    public static Factory instance = new Factory();
+public class FactoryTables {
+    public static FactoryTables instance = new FactoryTables();
     public ParentJarAndHisDependenciesImpl navD;
 
-    private Factory () {}
+    private FactoryTables() {}
 
-    public static Factory getInstance () {
-        return Factory.instance;
+    public static FactoryTables getInstance () {
+        return FactoryTables.instance;
     }
 
     public ParentJarAndHisDependencies getJarNameAndVersionDao(){

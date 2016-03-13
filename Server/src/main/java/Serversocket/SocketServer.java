@@ -5,7 +5,7 @@ import JSONParser.fromJSON;
 import JSONParser.toJSON;
 import com.google.gson.Gson;
 import workWithBD.Dao.ParentJarAndHisDependencies;
-import workWithBD.util.Factory;
+import workWithBD.util.FactoryTables;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -19,7 +19,11 @@ public class SocketServer {
     private int port = 5555;
     private ServerSocket myServerSocket = null;
 
-    public void createSocket () {
+    public SocketServer(int port) {
+        this.port = port;
+    }
+
+    public void runServer () {
         try
         {
             myServerSocket = new ServerSocket(port);
@@ -57,7 +61,7 @@ public class SocketServer {
         private BufferedReader in = null;
         private PrintWriter out = null;
         private  ParentJarAndHisDependencies navD = null;
-        private Factory factory = null;
+        private FactoryTables factory = null;
 
         public ClientServiceThread()
         {
@@ -67,7 +71,7 @@ public class SocketServer {
         ClientServiceThread(Socket s)
         {
             myClientSocket = s;
-            factory = Factory.getInstance();
+            factory = FactoryTables.getInstance();
             navD = factory.getJarNameAndVersionDao();
         }
 
@@ -84,11 +88,8 @@ public class SocketServer {
                 fromjson = new fromJSON(names);
                 listNames = fromjson.getListNames();
                 DependenciesJars dependenciesJars = navD.checkDependencies(listNames);
-                navD.clean();
-                //System.out.println(list.toString());
                 toJSON json = new toJSON(dependenciesJars);
                 json.createJSON();
-                //System.out.println(dependenciesJars.getSetDep().toString());
                 send(json);
 
             }
