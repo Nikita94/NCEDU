@@ -4,6 +4,7 @@ import com.netcracker.Client.Client;
 import com.netcracker.Logic.CurrentPath;
 import com.netcracker.Logic.FilesInclude;
 import com.netcracker.Logic.JarDiscovery;
+import com.netcracker.Logic.Phaser;
 
 import java.io.IOException;
 import java.lang.String;
@@ -40,6 +41,8 @@ class Main {
 
             Client sendJson = new Client("127.0.0.1", 5555, jar.getVerList());
             String out=sendJson.connection(jar.getVerList());
+            Phaser ans=new Phaser();
+            ans.result(out);
 
         }catch (IOException e){
             System.out.println("No such array");
