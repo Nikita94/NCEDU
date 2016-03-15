@@ -12,6 +12,8 @@ import java.nio.file.DirectoryStream;
 import java.io.IOException;
 import java.lang.String;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import static java.lang.System.out;
 import static java.nio.file.Files.newDirectoryStream;
 import static java.nio.file.Files.isRegularFile;
@@ -20,16 +22,38 @@ import static java.nio.file.Files.isRegularFile;
  * Created by Admin on 2/26/2016.
  */
 public class CurrentPath {
-    public Path address;
+    private Path address;
 
+    public void setManner(){
+        Scanner arrow;
+        arrow =new Scanner(System.in);
+        System.out.println("To continue choose option.\n" +
+                "1.Search in program folder\n" +
+                "2.Search in upper folder\n" +
+                "3.Search in custom folder\n" +
+                "4. ../testJars\n" +
+                "0. Exit");
+        int n=arrow.nextInt();
 
-    public void printCurrentPath() {
-        address.toAbsolutePath();
-        String addressToPrint = address.toAbsolutePath().toString();
-        System.out.println(addressToPrint);
+        switch (n){
+            case 1: this.address=this.getPathToWork();
+                break;
+            case 2: this.address=this.getUpperPathToWork();
+                break;
+            case 3:
+                this.getCustomPath();
+                break;
+            case 4:
+                this.SpecialPath1();
+                break;
+
+            case 0:return;
+            default:this.address=this.getPathToWork();
+                break;
+        }
     }
 
-    public void getCustomPath() {
+    private void getCustomPath() {
         InputStream is = System.in;
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         try {
@@ -45,16 +69,16 @@ public class CurrentPath {
         }
     }
 
-    public void SpecialPath1(){
+    private void SpecialPath1(){
         this.address=Paths.get("E:\\Windows\\Documents\\NEC\\ClientServer\\ClientServer\\testJars");
     }
-    public Path getPathToWork() {
-        address = Paths.get("");
-        address.toAbsolutePath();
-        address = address.toAbsolutePath();
+    private Path getPathToWork() {
+        this.address = Paths.get("");
+        this.address.toAbsolutePath();
+        this.address = this.address.toAbsolutePath();
         return address;
     }
-    public Path getUpperPathToWork(){
+    private Path getUpperPathToWork(){
         address = Paths.get("");
         address=address.toAbsolutePath().getParent();
         address.toAbsolutePath();
@@ -63,12 +87,10 @@ public class CurrentPath {
 
     }
 
-    public void printCurrentFolder(){
-
-        String a=address.getFileName().toString();
-        System.out.println(a);
-
+    public Path getAddress() {
+        return address;
     }
+
 }
 
   /* public void getFilesList(Path workDir) {

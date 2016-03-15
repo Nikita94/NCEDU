@@ -1,17 +1,13 @@
 package com.netcracker;
 
-//import java.nio.file.Files;
-
-import com.netcracker.Additional.Delay;
 import com.netcracker.Client.Client;
 import com.netcracker.Logic.CurrentPath;
 import com.netcracker.Logic.FilesInclude;
 import com.netcracker.Logic.JarDiscovery;
-import com.sun.xml.internal.bind.marshaller.NioEscapeHandler;
+import com.netcracker.Logic.Phaser;
 
 import java.io.IOException;
 import java.lang.String;
-import java.util.*;
 
 import static java.nio.file.Files.newDirectoryStream;
 
@@ -19,59 +15,34 @@ class Main {
 
 
     public static void main(String[] args) {
-        CurrentPath way= new CurrentPath();
-        Scanner arrow =new Scanner(System.in);
+        CurrentPath way; //determine work folder
+        FilesInclude fileList;
         JarDiscovery jar;
-        System.out.println("Hello, this is test version of jar dependency checker.");//Console app
-        System.out.println("To continue choose option.\n1.Search in program folder\n2.Search in upper folder\n3.Search in custom folder\n4. ../testJars\n0. Exit");
-        int n=arrow.nextInt();
+        System.out.println("Hello, this is a jar dependency checker.");//Console app
+        way=new CurrentPath();
+        way.setManner();
 
-        switch (n){
-            case 1: way.address=way.getPathToWork();
-                break;
-            case 2: way.address=way.getUpperPathToWork();
-                break;
-            case 3:
-                way.getCustomPath();
-                break;
-            case 4:
-                way.SpecialPath1();
-                break;
 
-            case 0:return;
-            default:way.address=way.getPathToWork();
-                break;
-        }
 
         System.out.print("You're in ");
-        way.printCurrentPath();
+        System.out.println(way.getAddress().getFileName().toString()); //check your work folder
         System.out.println("Let's begin to work.");
-        Delay wait=new Delay();
-        wait.delay(1000);
-        System.out.print("Folder scan");
-        wait.delay(500);
-        System.out.print(".");
-        wait.delay(500);
-        System.out.print(".");
-        wait.delay(500);
-        System.out.print(".");
-        wait.delay(1000);
-        FilesInclude fileList=new FilesInclude(way.address);
+        try{Thread.sleep(1000);
+        }catch (InterruptedException e){}
+        System.out.print("Folder scan...\n");
 
+        fileList=new FilesInclude(way.getAddress());
+        //fileList.printFilesList();
 
-        fileList.printFilesList();
-        way.printCurrentFolder();
-        System.out.println(fileList.jarList.size());
-        // JarDiscovery() нам надо адрес и имена.
+        jar = new JarDiscovery(way.getAddress(), fileList.getJarAddressList());
+        jar.jarExplore();
 
-        //if(!fileList.jarList.isEmpty()) {
-            jar = new JarDiscovery(way.address, fileList.jarAddressList);
-            jar.jarExplore();
-        //}
         try {
 
-            Client sendJson = new Client("127.0.0.1", 11111, jar.verList);
-            String out=sendJson.connection(jar.verList);
+            Client sendJson = new Client("127.0.0.1", 5555, jar.getVerList());
+            String out=sendJson.connection(jar.getVerList());
+            Phaser ans=new Phaser();
+            ans.result(out);
 
         }catch (IOException e){
             System.out.println("No such array");
@@ -118,7 +89,7 @@ class Main {
         /*
         for(int i=0; i<fList.length; i++)
         {
-            //Нужны только папки в место isFile() пишим isDirectory()
+            //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ isFile() пїЅпїЅпїЅпїЅпїЅ isDirectory()
             if(fList[i].isFile())
                 System.out.println(String.valueOf(i) + " - " + fList[i].getName());
         }
