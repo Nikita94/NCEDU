@@ -1,4 +1,7 @@
 {
-  "infoAboutDependencies": "All dependencies are met",
-  "setDep": []
+  "infoAboutDependencies": "All dependencies are not met",
+  "setDep": [
+    "uic.jar 12.0.3",
+    "idert.jar 1.0.0"
+  ]
 }

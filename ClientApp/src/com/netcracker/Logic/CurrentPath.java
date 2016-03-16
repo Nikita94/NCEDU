@@ -70,7 +70,31 @@ public class CurrentPath {
     }
 
     private void SpecialPath1(){
-        this.address=Paths.get("E:\\Windows\\Documents\\NEC\\ClientServer\\ClientServer\\testJars");
+        //this.address=Paths.get("E:\\Windows\\Documents\\NEC\\ClientServer\\ClientServer\\testJars");
+        Scanner scan=new Scanner(System.in);
+        System.out.println("1. Correct TestJars\n2.Wrong TestJars\n3.No dependencies");
+        int key=scan.nextInt();
+        switch ( key) {
+            case 1:
+                this.address = Paths.get("E:\\Windows\\Documents\\NEC\\ClientServer\\ClientServer\\testJars");
+                break;
+            case 2:
+                //this code shows how to go to another folder. To go to any folder
+                //we should add visitor here.
+                this.address=Paths.get("");
+                this.address=address.toAbsolutePath();
+                String tmp;
+                tmp=address.toString();
+                tmp=tmp.concat("\\ClientApp\\testJars");
+                address=Paths.get(tmp);
+                break;
+            case 3:
+                this.address = Paths.get("E:\\Windows\\Documents\\NEC\\ClientServer\\ClientServer\\testJars1");
+                break;
+
+        }
+
+
     }
     private Path getPathToWork() {
         this.address = Paths.get("");
@@ -81,8 +105,6 @@ public class CurrentPath {
     private Path getUpperPathToWork(){
         address = Paths.get("");
         address=address.toAbsolutePath().getParent();
-        address.toAbsolutePath();
-        address = address.toAbsolutePath();
         return address;
 
     }
