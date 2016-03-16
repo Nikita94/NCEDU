@@ -3,6 +3,7 @@ package com.netcracker.Client;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.netcracker.Logic.Parser;
 
 import java.io.*;
 import java.net.Socket;
@@ -33,7 +34,7 @@ public class Client {
     }
 
 
-    public String connection(Gson json) throws IOException {  //Method returns json as string.
+    public void connection(Gson json) throws IOException {  //Method returns json as string.
         String outPutJson = "";
         try {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -52,7 +53,9 @@ public class Client {
             out.close();
             socket.close();
         }
-        return outPutJson;
+
+        Parser ans=new Parser();
+        ans.result(outPutJson);
     }
 
 }

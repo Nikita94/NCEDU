@@ -39,7 +39,7 @@ public class Parser {
 
 
 
-            System.out.println(fin.get(2));
+            System.out.println("\n"+fin.get(2));
         if(fin.size()>4){
             System.out.println("you need this JAR's to work:");
 
