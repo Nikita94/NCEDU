@@ -40,10 +40,8 @@ class Main {
         try {
 
             Client sendJson = new Client("127.0.0.1", 5555, jar.getVerList());
-            String out=sendJson.connection(jar.getVerList());
-            Parser ans=new Parser();
-            ans.resultGson(out);
-            ans.result(out);
+            sendJson.connection(jar.getVerList());
+
 
         }catch (IOException e){
             System.out.println("No such array");
